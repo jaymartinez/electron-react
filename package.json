@@ -1,8 +1,8 @@
 {
-  "name": "electron-react-boilerplate",
+  "name": "electron-react",
   "productName": "ElectronReact",
   "version": "1.3.0",
-  "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
+  "description": "Electron application based on React (uses electron react boilerplate setup), React Router, Webpack, React Hot Loader for rapid application development",
   "scripts": {
     "build": "concurrently \"yarn build-main\" \"yarn build-renderer\"",
     "build-dll": "cross-env NODE_ENV=development webpack --config ./configs/webpack.config.renderer.dev.dll.babel.js --colors",
@@ -143,7 +143,7 @@
     "hot",
     "reload"
   ],
-  "homepage": "https://github.com/electron-react-boilerplate/electron-react-boilerplate#readme",
+  "homepage": "https://github.com/jaymartinez/electron-react",
   "jest": {
     "testURL": "http://localhost/",
     "moduleNameMapper": {
@@ -204,6 +204,7 @@
     "@types/redux-logger": "^3.0.8",
     "@types/webpack": "^4.41.21",
     "@types/webpack-env": "^1.15.2",
+    "@types/rsocket-tcp-client": "0.0.1",
     "@typescript-eslint/eslint-plugin": "^3.6.1",
     "@typescript-eslint/parser": "^3.6.1",
     "babel-eslint": "^10.1.0",
@@ -287,6 +288,12 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "regenerator-runtime": "^0.13.5",
+    "rsocket-core": "0.0.19",
+    "rsocket-flowable": "0.0.14",
+    "rsocket-tcp-client": "0.0.19",
+    "rsocket-tcp-server": "0.0.19",
+    "rsocket-websocket-client": "0.0.19",
+    "rsocket-websocket-server": "0.0.19",
     "source-map-support": "^0.5.19"
   },
   "devEngines": {
