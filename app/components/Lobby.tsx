@@ -1,8 +1,8 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import PokerService from '../../services/pokerService';
-import routes from '../../constants/routes.json';
+import PokerService from '../services/pokerService';
+import routes from '../constants/routes.json';
 import styles from './Lobby.css';
 
 export default function Lobby() {
