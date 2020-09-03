@@ -2,3 +2,47 @@
 # yarn lockfile v1
 
 
+"@types/node@*":
+  version "14.6.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.6.2.tgz#264b44c5a28dfa80198fc2f7b6d3c8a054b9491f"
+  integrity sha512-onlIwbaeqvZyniGPfdw/TEhKIh79pz66L1q06WUQqJLnAb6wbjvOtepLYTGHTqzdXgBYIE3ZdmqHDGsRsbBz7A==
+
+"@types/rsocket-core@*", "@types/rsocket-core@0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@types/rsocket-core/-/rsocket-core-0.0.5.tgz#5c5605af821a56cbce1777a420583511f3d31974"
+  integrity sha512-ARlWAs7kJGFezpaK7wGZWB5XhEqMP4NlWBqae43goLR31fLU/VmaCmlIgVOFxj5xwNO6EcUlFQBZNVNxr3Qk3Q==
+  dependencies:
+    "@types/node" "*"
+    "@types/rsocket-flowable" "*"
+    "@types/rsocket-types" "*"
+
+"@types/rsocket-flowable@*":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@types/rsocket-flowable/-/rsocket-flowable-0.0.5.tgz#abc144da8f9d5fb44b3fe4d9e3d764d5f3e35431"
+  integrity sha512-Xf9C8VCPqSPGXaFvnE31ifjQJACiNpxo8ujfeZ0vMHPOANxkbmiL8Crrxa3nUe1EVcFGDgmODUhLqnCcjPWjDQ==
+  dependencies:
+    "@types/rsocket-types" "*"
+
+"@types/rsocket-types@*":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@types/rsocket-types/-/rsocket-types-0.0.2.tgz#a39946a902e345e872df6176336496a4b1f97587"
+  integrity sha512-OkyRD4t4djiznJOGo3txcBEZy+dpC5s+mfDxkD4pd++V923Xp5vTqTBFIb5YQlXpwLw5pMQJc8xTOu4JIq+cmA==
+  dependencies:
+    "@types/node" "*"
+    "@types/rsocket-flowable" "*"
+
+"@types/rsocket-websocket-client@0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@types/rsocket-websocket-client/-/rsocket-websocket-client-0.0.3.tgz#44ae9fd86d04d836bd432027eed6e16ad5a58e8a"
+  integrity sha512-AeAgUClLeFvCymC9ocgIAgaD+h5ZPLvJzJaw7DSHAkBh9wVCcrtRGOhGpHf0prN6rf8tG09dcWs5yzbCYYnmFA==
+  dependencies:
+    "@types/rsocket-core" "*"
+    "@types/rsocket-flowable" "*"
+    "@types/rsocket-types" "*"
+
+"@types/ws@^7.2.6":
+  version "7.2.6"
+  resolved "https://registry.yarnpkg.com/@types/ws/-/ws-7.2.6.tgz#516cbfb818310f87b43940460e065eb912a4178d"
+  integrity sha512-Q07IrQUSNpr+cXU4E4LtkSIBPie5GLZyyMC1QtQYRLWz701+XcoVygGUZgvLqElq1nU4ICldMYPnexlBsg3dqQ==
+  dependencies:
+    "@types/node" "*"
