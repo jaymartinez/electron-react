@@ -5,6 +5,7 @@ import { Switch, Route } from 'react-router-dom';
 import routes from './constants/routes.json';
 import App from './containers/App';
 import HomePage from './containers/HomePage';
+import RegisterPage from './containers/RegisterPage';
 
 const LazyLobbyPage = React.lazy(() =>
   import(/* webpackChunkName: "LobbyPage" */ './containers/LobbyPage')
@@ -21,6 +22,7 @@ export default function Routes() {
     <App>
       <Switch>
         <Route path={routes.LOBBY} component={LobbyPage} />
+        <Route path={routes.REGISTER} component={RegisterPage} />
         <Route path={routes.HOME} component={HomePage} />
       </Switch>
     </App>
