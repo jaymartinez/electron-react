@@ -16,8 +16,6 @@
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
-    "@types/rsocket-core": "0.0.5",
-    "@types/ws": "^7.2.6",
-    "@types/rsocket-websocket-client": "0.0.3"
+    "@types/ws": "^7.2.6"
   }
 }
