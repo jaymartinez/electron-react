@@ -71,7 +71,7 @@ export default function Home(): JSX.Element {
             </Grid>
           </Grid>
           <Button
-            type="submit"
+            type="button"
             fullWidth
             variant="contained"
             color="primary"
