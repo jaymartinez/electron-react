@@ -51,10 +51,10 @@ export default function Home(): JSX.Element {
                 variant="outlined"
                 required
                 fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
+                id="username"
+                label="Username"
+                name="username"
+                autoComplete="username"
               />
             </Grid>
             <Grid item xs={12}>
