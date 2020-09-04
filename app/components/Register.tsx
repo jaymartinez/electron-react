@@ -76,7 +76,6 @@ export default function Home(): JSX.Element {
                 fullWidth
                 id="firstName"
                 label="First Name"
-                autoFocus
               />
             </Grid>
             <Grid item xs={12} sm={6}>
