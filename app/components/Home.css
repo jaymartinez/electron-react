@@ -1,5 +1,4 @@
 .container {
-  position: absolute;
   top: 30%;
   left: 10px;
   text-align: center;
@@ -11,4 +10,8 @@
 
 .container a {
   font-size: 1.4rem;
+}
+
+.login {
+  align-content: center;
 }

@@ -1,18 +1,19 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint react/jsx-props-no-spreading: off */
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import routes from './constants/routes.json';
 import App from './containers/App';
 import HomePage from './containers/HomePage';
+import RegisterPage from './containers/RegisterPage';
 
-// Lazily load routes and code split with webpack
-const LazyCounterPage = React.lazy(() =>
-  import(/* webpackChunkName: "CounterPage" */ './containers/CounterPage')
+const LazyLobbyPage = React.lazy(() =>
+  import(/* webpackChunkName: "LobbyPage" */ './containers/LobbyPage')
 );
 
-const CounterPage = (props: Record<string, any>) => (
+const LobbyPage = (props: Record<string, any>) => (
   <React.Suspense fallback={<h1>Loading...</h1>}>
-    <LazyCounterPage {...props} />
+    <LazyLobbyPage {...props} />
   </React.Suspense>
 );
 
@@ -20,7 +21,8 @@ export default function Routes() {
   return (
     <App>
       <Switch>
-        <Route path={routes.COUNTER} component={CounterPage} />
+        <Route path={routes.LOBBY} component={LobbyPage} />
+        <Route path={routes.REGISTER} component={RegisterPage} />
         <Route path={routes.HOME} component={HomePage} />
       </Switch>
     </App>
