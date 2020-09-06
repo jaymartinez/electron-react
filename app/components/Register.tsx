@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable @typescript-eslint/lines-between-class-members */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
@@ -12,6 +14,17 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import routes from '../constants/routes.json';
+import PokerService from '../services/pokerService';
+import RegisterModel from '../models/RegisterModel';
+
+const usernameField: React.RefObject<HTMLInputElement> = React.createRef();
+const firstNameField: React.RefObject<HTMLInputElement> = React.createRef();
+const lastNameField: React.RefObject<HTMLInputElement> = React.createRef();
+const emailField: React.RefObject<HTMLInputElement> = React.createRef();
+const passwordField: React.RefObject<HTMLInputElement> = React.createRef();
+const password2Field: React.RefObject<HTMLInputElement> = React.createRef();
+const phoneRef: React.RefObject<HTMLInputElement> = React.createRef();
+const errorLabelRef: React.RefObject<HTMLHeadingElement> = React.createRef();
 
 const useStyles = makeStyles((theme: any) => ({
   paper: {
@@ -34,9 +47,50 @@ const useStyles = makeStyles((theme: any) => ({
   backButton: {
     position: 'absolute',
   },
+  errorLabel: {
+    color: 'red',
+    fontSize: 16,
+  },
 }));
 
-export default function Home(): JSX.Element {
+async function registerClicked() {
+  if (
+    !usernameField.current?.value ||
+    !firstNameField.current?.value ||
+    !lastNameField.current?.value ||
+    !emailField.current?.value ||
+    !passwordField.current?.value ||
+    !password2Field.current?.value
+  ) {
+    if (errorLabelRef.current !== null) {
+      errorLabelRef.current.innerText = 'You left a field blank!';
+      errorLabelRef.current.hidden = false;
+    }
+  } else if (password2Field.current.value !== passwordField.current.value) {
+    if (errorLabelRef.current !== null) {
+      errorLabelRef.current.innerText = 'Passwords do not match!';
+      errorLabelRef.current.hidden = false;
+    }
+  } else {
+    if (errorLabelRef.current !== null) {
+      errorLabelRef.current.hidden = true;
+    }
+
+
+    const uname = usernameField.current?.value;
+    const name = `${firstNameField.current?.value} ${lastNameField.current?.value}`;
+    const alias = firstNameField.current?.value;
+    const email = emailField.current?.value;
+    const phone = phoneRef.current?.value;
+    const pw = passwordField.current?.value;
+
+    const model = new RegisterModel(uname, name, alias, phone, email, pw);
+    const ps = new PokerService();
+    ps.registerUser(model);
+  }
+}
+
+export default function Register(): JSX.Element {
   const classes = useStyles();
   return (
     <Container component="main" maxWidth="xs">
@@ -65,6 +119,7 @@ export default function Home(): JSX.Element {
                 id="userName"
                 label="User Name"
                 autoFocus
+                inputRef={usernameField}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -76,6 +131,7 @@ export default function Home(): JSX.Element {
                 fullWidth
                 id="firstName"
                 label="First Name"
+                inputRef={firstNameField}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -87,6 +143,7 @@ export default function Home(): JSX.Element {
                 label="Last Name"
                 name="lastName"
                 autoComplete="lname"
+                inputRef={lastNameField}
               />
             </Grid>
             <Grid item xs={12}>
@@ -98,6 +155,18 @@ export default function Home(): JSX.Element {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                inputRef={emailField}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                fullWidth
+                id="phone"
+                label="Phone"
+                name="phone"
+                autoComplete="lphone"
+                inputRef={phoneRef}
               />
             </Grid>
             <Grid item xs={12}>
@@ -110,6 +179,7 @@ export default function Home(): JSX.Element {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                inputRef={passwordField}
               />
             </Grid>
             <Grid item xs={12}>
@@ -120,20 +190,31 @@ export default function Home(): JSX.Element {
                 name="confirmPassword"
                 label="Confirm Password"
                 type="password"
-                id="confirmPassword"
+                id="password2"
                 autoComplete="current-password"
+                inputRef={password2Field}
               />
             </Grid>
           </Grid>
           <Button
-            type="submit"
+            type="button"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={registerClicked}
           >
             Sign Up
           </Button>
+          <Typography
+            component="h1"
+            variant="h5"
+            innerRef={errorLabelRef}
+            className={classes.errorLabel}
+            hidden
+          >
+            An error occurred!
+          </Typography>
         </form>
       </div>
     </Container>

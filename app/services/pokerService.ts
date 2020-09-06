@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -14,17 +15,19 @@ import {
   BufferEncoder,
 } from 'rsocket-core';
 import RSocketTcpClient from 'rsocket-tcp-client';
+import RegisterModel from '../models/RegisterModel';
 
 export default class PokerService {
-  private client: RSocketClient<any, any>;
-
-  constructor() {
+  // eslint-disable-next-line class-methods-use-this
+  async registerUser(model: RegisterModel): Promise<any> {
+    const maxRSocketRequestN = 2147483647;
     const keepAlive = 60000;
-    const lifetime = 1000000;
-    const dataMimeType = 'message/x.rsocket.routing.v0';
-    const metadataMimeType = 'message/x.rsocket.routing.v0';
+    const lifetime = 100000;
+    const dataMimeType = MESSAGE_RSOCKET_ROUTING.string;
+    const metadataMimeType = MESSAGE_RSOCKET_COMPOSITE_METADATA.string;
+    const route = 'user-manager-register-user';
 
-    this.client = new RSocketClient({
+    const client = new RSocketClient({
       setup: {
         dataMimeType,
         keepAlive,
@@ -40,19 +43,33 @@ export default class PokerService {
       ),
     });
 
-    Promise.resolve(this.connect())
-      .finally(() => {
-        console.log('done');
-      })
-      .catch((reason) => {
-        console.log(reason);
-      });
-  }
+    client.connect().subscribe({
+      onComplete: (socket) => {
+        socket
+          .requestStream({
+            data: Buffer.from(JSON.stringify(model)),
+            metadata: encodeAndAddWellKnownMetadata(
+              encodeAndAddCustomMetadata(
+                Buffer.alloc(1),
+                TEXT_PLAIN.string,
+                Buffer.from('A')
+              ),
+              MESSAGE_RSOCKET_ROUTING,
+              Buffer.from(String.fromCharCode(route.length) + route)
+            ),
+          })
+          .subscribe({
+            onComplete: () => console.log('Request stream complete'),
+            onError: (error) => console.log(error.message),
+            onNext: (value) => console.log('%s', value.data),
+            onSubscribe: (sub) => {
+              debugger;
+              sub.request(maxRSocketRequestN);
+            },
+          });
+      },
+    });
 
-  async connect(): Promise<any> {
-    const maxRSocketRequestN = 2147483647;
-
-    await this.client.connect();
     return Promise.resolve();
   }
 }
