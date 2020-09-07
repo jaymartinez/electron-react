@@ -4,11 +4,11 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import routes from './constants/routes.json';
 import App from './containers/App';
-import HomePage from './containers/HomePage';
-import RegisterPage from './containers/RegisterPage';
+import HomePage from './components/HomePage';
+import RegisterPage from './components/RegisterPage';
 
 const LazyLobbyPage = React.lazy(() =>
-  import(/* webpackChunkName: "LobbyPage" */ './containers/LobbyPage')
+  import(/* webpackChunkName: "LobbyPage" */ './components/LobbyPage')
 );
 
 const LobbyPage = (props: Record<string, any>) => (

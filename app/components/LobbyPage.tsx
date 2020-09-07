@@ -1,5 +1,5 @@
 import React from 'react';
-import Lobby from '../components/Lobby';
+import Lobby from '../containers/Lobby';
 
 export default function LobbyPage() {
   return <Lobby />;

@@ -17,14 +17,14 @@ import routes from '../constants/routes.json';
 import PokerService from '../services/pokerService';
 import RegisterModel from '../models/RegisterModel';
 
-const usernameField: React.RefObject<HTMLInputElement> = React.createRef();
-const firstNameField: React.RefObject<HTMLInputElement> = React.createRef();
-const lastNameField: React.RefObject<HTMLInputElement> = React.createRef();
-const emailField: React.RefObject<HTMLInputElement> = React.createRef();
-const passwordField: React.RefObject<HTMLInputElement> = React.createRef();
-const password2Field: React.RefObject<HTMLInputElement> = React.createRef();
-const phoneRef: React.RefObject<HTMLInputElement> = React.createRef();
-const errorLabelRef: React.RefObject<HTMLHeadingElement> = React.createRef();
+const usernameField: React.RefObject<any> = React.createRef();
+const firstNameField: React.RefObject<any> = React.createRef();
+const lastNameField: React.RefObject<any> = React.createRef();
+const emailField: React.RefObject<any> = React.createRef();
+const passwordField: React.RefObject<any> = React.createRef();
+const password2Field: React.RefObject<any> = React.createRef();
+const phoneRef: React.RefObject<any> = React.createRef();
+const errorLabelRef: React.RefObject<any> = React.createRef();
 
 const useStyles = makeStyles((theme: any) => ({
   paper: {
@@ -55,34 +55,27 @@ const useStyles = makeStyles((theme: any) => ({
 
 async function registerClicked() {
   if (
-    !usernameField.current?.value ||
-    !firstNameField.current?.value ||
-    !lastNameField.current?.value ||
-    !emailField.current?.value ||
-    !passwordField.current?.value ||
-    !password2Field.current?.value
+    !usernameField.current.value ||
+    !firstNameField.current.value ||
+    !lastNameField.current.value ||
+    !emailField.current.value ||
+    !passwordField.current.value ||
+    !password2Field.current.value
   ) {
-    if (errorLabelRef.current !== null) {
-      errorLabelRef.current.innerText = 'You left a field blank!';
-      errorLabelRef.current.hidden = false;
-    }
+    errorLabelRef.current.innerText = 'You left a field blank!';
+    errorLabelRef.current.hidden = false;
   } else if (password2Field.current.value !== passwordField.current.value) {
-    if (errorLabelRef.current !== null) {
-      errorLabelRef.current.innerText = 'Passwords do not match!';
-      errorLabelRef.current.hidden = false;
-    }
+    errorLabelRef.current.innerText = 'Passwords do not match!';
+    errorLabelRef.current.hidden = false;
   } else {
-    if (errorLabelRef.current !== null) {
-      errorLabelRef.current.hidden = true;
-    }
+    errorLabelRef.current.hidden = true;
 
-
-    const uname = usernameField.current?.value;
-    const name = `${firstNameField.current?.value} ${lastNameField.current?.value}`;
-    const alias = firstNameField.current?.value;
-    const email = emailField.current?.value;
-    const phone = phoneRef.current?.value;
-    const pw = passwordField.current?.value;
+    const uname = usernameField.current.value;
+    const name = `${firstNameField.current.value} ${lastNameField.current.value}`;
+    const alias = firstNameField.current.value;
+    const email = emailField.current.value;
+    const phone = phoneRef.current.value;
+    const pw = passwordField.current.value;
 
     const model = new RegisterModel(uname, name, alias, phone, email, pw);
     const ps = new PokerService();
@@ -161,6 +154,7 @@ export default function Register(): JSX.Element {
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
+                required
                 fullWidth
                 id="phone"
                 label="Phone"

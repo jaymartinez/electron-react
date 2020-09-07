@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 /* eslint-disable no-debugger */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-console */
@@ -6,24 +7,21 @@
 import {
   RSocketClient,
   BufferEncoders,
-  RSocketResumableTransport,
   encodeAndAddWellKnownMetadata,
-  encodeAndAddCustomMetadata,
-  TEXT_PLAIN,
   MESSAGE_RSOCKET_COMPOSITE_METADATA,
   MESSAGE_RSOCKET_ROUTING,
-  BufferEncoder,
+  APPLICATION_CBOR,
 } from 'rsocket-core';
+import cbor from 'cbor';
 import RSocketTcpClient from 'rsocket-tcp-client';
 import RegisterModel from '../models/RegisterModel';
 
 export default class PokerService {
   // eslint-disable-next-line class-methods-use-this
   async registerUser(model: RegisterModel): Promise<any> {
-    const maxRSocketRequestN = 2147483647;
     const keepAlive = 60000;
     const lifetime = 100000;
-    const dataMimeType = MESSAGE_RSOCKET_ROUTING.string;
+    const dataMimeType = APPLICATION_CBOR.string;
     const metadataMimeType = MESSAGE_RSOCKET_COMPOSITE_METADATA.string;
     const route = 'user-manager-register-user';
 
@@ -43,33 +41,40 @@ export default class PokerService {
       ),
     });
 
+    const buf = cbor.encode(model);
+
     client.connect().subscribe({
       onComplete: (socket) => {
         socket
-          .requestStream({
-            data: Buffer.from(JSON.stringify(model)),
+          .requestResponse({
+            data: buf,
             metadata: encodeAndAddWellKnownMetadata(
-              encodeAndAddCustomMetadata(
-                Buffer.alloc(1),
-                TEXT_PLAIN.string,
-                Buffer.from('A')
-              ),
+              Buffer.alloc(0),
               MESSAGE_RSOCKET_ROUTING,
-              Buffer.from(String.fromCharCode(route.length) + route)
+              this.encodeRoute(route)
             ),
           })
           .subscribe({
-            onComplete: () => console.log('Request stream complete'),
-            onError: (error) => console.log(error.message),
-            onNext: (value) => console.log('%s', value.data),
+            onComplete: () => {
+              console.log('Request stream complete');
+            },
+            onError: (error) => {
+              console.error(error.message);
+            },
             onSubscribe: (sub) => {
-              debugger;
-              sub.request(maxRSocketRequestN);
+              console.log('onSubscribe()');
             },
           });
       },
     });
 
     return Promise.resolve();
+  }
+
+  encodeRoute(r: any) {
+    const len = Buffer.byteLength(r, 'utf-8');
+    const buf = Buffer.alloc(1);
+    buf.writeInt8(len, 0);
+    return Buffer.concat([buf, Buffer.from(r, 'utf-8')]);
   }
 }

@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/lines-between-class-members */
 export default class RegisterModel {
-  private loginId: string | undefined;
-  private name: string | undefined;
-  private alias: string | undefined;
-  private phone: string | undefined;
-  private email: string | undefined;
-  private password: string | undefined;
+  private loginId: string;
+  private name: string;
+  private alias: string;
+  private phone: string;
+  private email: string;
+  private password: string;
 
   constructor(
-    loginId: string | undefined,
-    name: string | undefined,
-    alias: string | undefined,
-    phone: string | undefined,
-    email: string | undefined,
-    password: string | undefined
+    loginId: string,
+    name: string,
+    alias: string,
+    phone: string,
+    email: string,
+    password: string
   ) {
     this.loginId = loginId;
     this.name = name;
